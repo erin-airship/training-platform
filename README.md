@@ -83,63 +83,130 @@ Allow trainers and trainees to track their progress, including which training pl
 
 
 ## Domain Diagram
-- User -> Trainer | Trainee
-- Course -> has one trainer and multiple trainees
-- Progress -> belongs to course
 ``` mermaid
 classDiagram
-    User <|-- Trainee
-    User <|-- Trainer
+    class User {
+        +int id
+        +string username
+        +string password
+        +string email
+        +string role
+    }
+
+    class Trainer {
+        +int userId
+        +string specialization
+        +string bio
+    }
+
+    class Trainee {
+        +int userId
+        +string progress
+        +string goals
+    }
+
+    class Cohort {
+        +int id
+        +int courseId
+        +string name
+    }
+
+    class Course {
+        +int id
+        +string title
+        +string description
+        +int trainerId
+        +string traineeIds
+    }
+
+    class Module {
+        +int id
+        +int courseId
+        +string title
+    }
+
+    class Progress {
+        +int id
+        +int traineeId
+        +int courseId
+        +int moduleId
+        +int score
+        +string status
+    }
+
+    User <|-- Trainer : is a
+    User <|-- Trainee : is a
+    Trainer "1" -- "0..*" Course : manages
+    Trainee "0..*" -- "1" Course : enrolls in
+    Course "1" -- "0..*" Module : contains
+    Course "1" -- "0..*" Cohort : has
+    Trainee "1" -- "0..*" Progress : has
+    Course "1" -- "0..*" Progress : tracks
+    Module "1" -- "0..*" Progress : contains
 ```
 
 
 ## ERD
 ``` mermaid
 erDiagram
-    USER {
-        int id
-        string name
-        string email
+    USERS {
+        int id PK
+        string username
         string password
+        string email
+        string role
     }
-    
-    TRAINEE {
-        int id
-        int userId
-    }
-    
+
     TRAINER {
-        int id
-        int userId
+        int user_id PK, FK
+        string specialization
+        string bio
     }
-    
+
+    TRAINEE {
+        int user_id PK, FK
+        string progress
+        string goals
+    }
+
+    COHORT {
+        int id PK
+        int course_id FK
+        string name
+    }
+
     COURSE {
-        int id
+        int id PK
         string title
         string description
-        int trainerId
+        int trainer_id FK
+        string trainee_ids
     }
-    
+
     MODULE {
-        int id
+        int id PK
+        int course_id FK
         string title
-        int courseId
     }
-    
+
     PROGRESS {
-        int id
-        int traineeId
-        int courseId
-        int moduleId
+        int id PK
+        int trainee_id FK
+        int course_id FK
+        int module_id FK
         int score
         string status
     }
-    
-    COHORT {
-        int id
-        string name
-        int courseId
-    }
+
+    USERS ||--o| TRAINER: "is a"
+    USERS ||--o| TRAINEE: "is a"
+    COURSE }o--|| TRAINER: "manages"
+    COURSE }o--o{ TRAINEE: "includes"
+    COURSE ||--o{ MODULE: "has"
+    COHORT ||--o{ COURSE: "belongs to"
+    TRAINEE ||--o{ PROGRESS: "makes"
+    COURSE ||--o{ PROGRESS: "tracks"
+    MODULE ||--o{ PROGRESS: "tracks"
 ```
 
 
