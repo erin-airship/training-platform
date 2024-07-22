@@ -214,9 +214,17 @@ erDiagram
 ## Links
  - TODO: add link to application
 
+ 
+
 ## Getting Started 
 
 ### Technologies Used
+- [TypeScript](https://www.typescriptlang.org/)
+- [Mermaid.js](https://mermaid.js.org/intro/)
+- [Express.js](https://expressjs.com/en/guide/routing.html)
+- [Nodemon](https://github.com/remy/nodemon)
+- [Docker](https://docs.docker.com/)
+- [Flyway](https://documentation.red-gate.com/flyway)
 
 ### Installation 
 
