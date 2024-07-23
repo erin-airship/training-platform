@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { 
-    cohortsRouter, 
     coursesRouter, 
     exampleRouter,
     progressRouter,
@@ -11,7 +10,6 @@ const app = express()
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
-app.use('/cohorts', cohortsRouter);
 app.use('/courses', coursesRouter);
 app.use('/example', exampleRouter);
 app.use('/progress', progressRouter);

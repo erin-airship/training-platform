@@ -1,4 +1,3 @@
-export { default as cohortsRouter } from './cohorts';
 export { default as coursesRouter } from './courses';
 export { default as exampleRouter } from './example';
 export { default as progressRouter } from './progress';
