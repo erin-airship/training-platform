@@ -1,7 +1,7 @@
 # Training Platform App
 
 ## Introduction 
-This is a web application that allows users who are instructing or taking a training cohort to have the ability to track their progress within the course.
+This is a web application that allows users who are instructing or taking a training course to have the ability to track their progress within the course.
 
 ## Purpose 
 Allow trainers and trainees to track their progress, including which training plan they're taking, what modules they've completed, and give feedback all in one place instead of keeping track manually or across multiple applications.
@@ -11,8 +11,6 @@ Allow trainers and trainees to track their progress, including which training pl
     - A person responsible for teaching courses on the platform. Trainers create course content, deliver lectures, manage assessments, and provide support to trainees. They ensure that the course objectives are met. Can be referred to as an instructor.
  - Trainee
     - An individual registered on the platform and enrolled in a course to gain knowledge or skills. Trainees actively participate in learning activities and complete assignments given by a trainer. Can be referred to as a student. 
- - Cohort
-    - Group of trainees enrolled in a course.
  - Course
     - A structured program led by a trainer consisting of various modules, lessons, or assignments. 
 
@@ -28,7 +26,6 @@ Allow trainers and trainees to track their progress, including which training pl
     - Ability to create, edit, and delete a course
     - Ability to set statuses for modules 
 - User Dashboard
-    - Ability for trainers to keep track of which students are in a cohort
         - What modules they've completed
         - See total completion of training plan
     - Ability for trainee to see what courses they are enrolled in and course progress
@@ -87,7 +84,6 @@ Allow trainers and trainees to track their progress, including which training pl
 classDiagram
     class User {
         +int id
-        +string username
         +string password
         +string email
         +string role
@@ -103,12 +99,6 @@ classDiagram
         +int userId
         +string progress
         +string goals
-    }
-
-    class Cohort {
-        +int id
-        +int courseId
-        +string name
     }
 
     class Course {
@@ -139,7 +129,6 @@ classDiagram
     Trainer "1" -- "0..*" Course : manages
     Trainee "0..*" -- "1" Course : enrolls in
     Course "1" -- "0..*" Module : contains
-    Course "1" -- "0..*" Cohort : has
     Trainee "1" -- "0..*" Progress : has
     Course "1" -- "0..*" Progress : tracks
     Module "1" -- "0..*" Progress : contains
@@ -169,12 +158,6 @@ erDiagram
         string goals
     }
 
-    COHORT {
-        int id PK
-        int course_id FK
-        string name
-    }
-
     COURSE {
         int id PK
         string title
@@ -202,8 +185,6 @@ erDiagram
     USERS ||--o| TRAINEE: "is a"
     COURSE }o--|| TRAINER: "manages"
     COURSE }o--o{ TRAINEE: "includes"
-    COURSE ||--o{ MODULE: "has"
-    COHORT ||--o{ COURSE: "belongs to"
     TRAINEE ||--o{ PROGRESS: "makes"
     COURSE ||--o{ PROGRESS: "tracks"
     MODULE ||--o{ PROGRESS: "tracks"
