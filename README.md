@@ -36,7 +36,7 @@ Allow trainers and trainees to track their progress, including which training pl
 - Course Progress
     - Ability to give feedback on certain modules
 - Training Material 
-     - Ability to upload and manage course materials 
+     - Ability to upload and manage course materials for modules
 
 #### Could Have 
 - Communication Tools
@@ -140,7 +140,6 @@ classDiagram
 erDiagram
     USERS {
         int id PK
-        string username
         string password
         string email
         string role
