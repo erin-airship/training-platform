@@ -11,3 +11,31 @@ export const getAllExamples = async () => {
         name: 'Example 3'
     }]
 };
+
+export const getExampleById = async (id: number) => {
+    return {
+        id: id,
+        name: `Example ${id}`
+    };
+}
+
+export const createExample = async (name: string) => {
+    return {
+        id: 1,
+        name: name
+    };
+}
+
+export const updateExample = async (id: number, name: string) => {
+    return {
+        id: id,
+        name: name
+    };
+}
+
+export const deleteExample = async (id: number) => {
+    return {
+        id: id,
+        name: `Example ${id}`
+    };
+}

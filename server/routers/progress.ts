@@ -1,33 +1,16 @@
 import { Router, Response, Request } from 'express';
+import * as progressController from '../controllers/progress';
 
 const router = Router();
 
-// Get all progress
-router.get('/', (req: Request, res: Response) => {
-  res.send('Get all progress');
-});
+router.route('/').get(progressController.getProgress);
 
-// Get a specific progress
-router.get('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Get progress with ID: ${id}`);
-});
+router.route('/:id').get(progressController.getProgressById);
 
-// Create a new progress
-router.post('/', (req: Request, res: Response) => {
-  res.send('Create a new progress');
-});
+router.route('/').post(progressController.createProgress);
 
-// Update an existing progress
-router.put('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Update progress with ID: ${id}`);
-});
+router.route('/:id').put(progressController.updateProgress);
 
-// Delete a progress
-router.delete('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Delete progress with ID: ${id}`);
-});
+router.route('/:id').delete(progressController.deleteProgress);
 
 export default router;

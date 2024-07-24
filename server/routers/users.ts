@@ -1,33 +1,16 @@
 import { Router, Response, Request } from 'express';
+import * as userController from '../controllers/users';
 
 const router = Router();
 
-// Get all users
-router.get('/', (req: Request, res: Response) => {
-  res.send('Get all users');
-});
+router.route('/').get(userController.getUsers);
 
-// Get a specific user
-router.get('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Get user with ID: ${id}`);
-});
+router.route('/:id').get(userController.getUserById);
 
-// Create a new user
-router.post('/', (req: Request, res: Response) => {
-  res.send('Create a new user');
-});
+router.route('/').post(userController.createUser);
 
-// Update an existing user
-router.put('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Update user with ID: ${id}`);
-});
+router.route('/:id').put(userController.updateUser);
 
-// Delete a user
-router.delete('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Delete user with ID: ${id}`);
-});
+router.route('/:id').delete(userController.deleteUser);
 
 export default router;

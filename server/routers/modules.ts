@@ -1,33 +1,16 @@
 import { Router, Response, Request } from 'express';
+import * as moduleController from '../controllers/modules';
 
 const router = Router();
 
-// Get all modules
-router.get('/', (req: Request, res: Response) => {
-  res.send('Get all modules');
-});
+router.route('/').get(moduleController.getModules);
 
-// Get a specific module
-router.get('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Get module with ID: ${id}`);
-});
+router.route('/:id').get(moduleController.getModuleById);
 
-// Create a new module
-router.post('/', (req: Request, res: Response) => {
-  res.send('Create a new module');
-});
+router.route('/').post(moduleController.createModule);
 
-// Update an existing module
-router.put('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Update module with ID: ${id}`);
-});
+router.route('/:id').put(moduleController.updateModule);
 
-// Delete a module
-router.delete('/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  res.send(`Delete module with ID: ${id}`);
-});
+router.route('/:id').delete(moduleController.deleteModule);
 
 export default router;

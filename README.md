@@ -120,7 +120,6 @@ classDiagram
         +int traineeId
         +int courseId
         +int moduleId
-        +int score
         +string status
     }
 
@@ -176,7 +175,6 @@ erDiagram
         int trainee_id FK
         int course_id FK
         int module_id FK
-        int score
         string status
     }
 
