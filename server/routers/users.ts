@@ -7,7 +7,7 @@ const router = Router();
  * @swagger
  * tags:
  *   name: Users
- *   description: User management
+ *   description: User management and authentication
  */
 
 /**
