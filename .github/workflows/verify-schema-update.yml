@@ -26,7 +26,7 @@ jobs:
       - name: Server Install
         run: npm i
       - name: Prisma Pull
-        run: <your prisma pull command>
+        run: npx prisma db pull
       - name: Prisma Generate
         run: <your prisma generate command>
       - name: 🛠 Check for modified snapshots
