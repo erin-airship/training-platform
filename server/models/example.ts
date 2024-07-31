@@ -1,4 +1,5 @@
-// Prisma client will be used to interact with the database
+import {prisma} from '../utils/prisma';
+
 export const getAllExamples = async () => {
     return [{
         id: 1,
@@ -38,4 +39,8 @@ export const deleteExample = async (id: number) => {
         id: id,
         name: `Example ${id}`
     };
+}
+
+export const getAllUsers = async () => {
+    return await prisma.users.findMany();
 }

@@ -5,6 +5,13 @@ const getExamples = async (req: Request, res: Response) => {
     const examples = await exampleModel.getAllExamples();
     res.json(examples);
    };
+
+const getAllUsers = async (req: Request, res: Response) => {
+    const users = await exampleModel.getAllUsers();
+    return res.json(users);
+  };
+
 export {
-    getExamples
+    getExamples,
+    getAllUsers
 };
