@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
-import { coursesRouter, exampleRouter, modulesRouter, progressRouter, usersRouter } from "./routers";
+import { coursesRouter, exampleRouter, modulesRouter, progressRouter, usersRouter, authRouter } from "./routers";
 import { authMiddlewareExample } from "./middleware/auth";
 
 const app = express();
@@ -19,6 +19,7 @@ app.use("/example", exampleRouter);
 app.use("/modules", modulesRouter);
 app.use("/progress", progressRouter);
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 const options = {
   definition: {
@@ -186,6 +187,6 @@ const options = {
   const openapiSpecification = swaggerJsdoc(options);
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
-  app.use(authMiddlewareExample);
+  // app.use(authMiddlewareExample);
 
   export { app };

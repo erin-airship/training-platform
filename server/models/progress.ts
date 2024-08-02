@@ -1,51 +1,46 @@
+import { progress as Progress } from "@prisma/client";
+import { prisma } from "../utils/prisma";
+
+type CreateProgressPayload = Pick<
+  Progress,
+  "trainee_id" | "course_id" | "module_id" | "status"
+>;
+
 export const getAllProgress = async () => {
-    return [
-        {
-            id: 1,
-            traineeId: 2,
-            courseId: 1,
-            moduleId: 1,
-            status: 'completed'
-        },
-        {
-            id: 2,
-            traineeId: 2,
-            courseId: 1,
-            moduleId: 2,
-            status: 'in-progress'
-        }
-    ]
-}
+  return await prisma.progress.findMany({
+    orderBy: {
+      id: "asc",
+    },
+  });
+};
 
 export const getProgressById = async (id: number) => {
-    const progress = await getAllProgress();
-    return progress.find(progress => progress.id === id);
-}
+  return await prisma.progress.findUnique({
+    where: { id },
+  });
+};
 
-export const createProgress = async (progress: any) => {
-    const progresses = await getAllProgress();
-    const newProgress = { id: progresses.length + 1, ...progress };
-    progresses.push(newProgress);
-    return newProgress;
-}
+export const createProgress = async (progress: CreateProgressPayload) => {
+  const newProgress = await prisma.progress.create({
+    data: progress,
+  });
+  return newProgress;
+};
 
-export const updateProgress = async (id: number, progressData: any) => {
-    const progresses = await getAllProgress();
-    const index = progresses.findIndex(progress => progress.id === id);
-    if (index !== -1) {
-        progresses[index] = { ...progresses[index], ...progressData };
-        return progresses[index];
-    }
-    return null;
-}
+export const updateProgress = async (
+  id: number,
+  progressData: Partial<Progress>
+) => {
+  const updatedProgress = await prisma.progress.update({
+    where: { id },
+    data: progressData,
+  });
+  return updatedProgress;
+};
 
 export const deleteProgress = async (id: number) => {
-    const progresses = await getAllProgress();
-    const index = progresses.findIndex(progress => progress.id === id);
-    if (index !== -1) {
-        const deletedProgress = progresses[index];
-        progresses.splice(index, 1);
-        return deletedProgress;
-    }
-    return null;
-}
+  const deletedProgress = await prisma.progress.delete({
+    where: { id },
+  });
+  return deletedProgress;
+};
