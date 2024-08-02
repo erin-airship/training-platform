@@ -1,52 +1,49 @@
+import { modules as Module } from "@prisma/client";
+import { prisma } from "../utils/prisma";
+
+type CreateModulePayload = Pick<Module, "course_id" | "title">;
+
 export const getAllModules = async () => {
-   return [
-    {
-        id: 1,
-        courseId: 1,
-        title: 'Module 1',
+  return await prisma.modules.findMany({
+    orderBy: {
+      id: "asc",
     },
-    {
-        id: 2,
-        courseId: 1,
-        title: 'Module 2',
-    }
-   ]
-}
+  });
+};
 
 export const getModuleById = async (id: number) => {
-    const modules = await getAllModules();
-    return modules.find(module => module.id === id);
-}
+  return await prisma.modules.findUnique({
+    where: { id },
+  });
+};
 
 export const getModulesByCourseId = async (courseId: number) => {
-    const modules = await getAllModules();
-    return modules.filter(module => module.courseId === courseId);
-}
+  return await prisma.modules.findMany({
+    where: { course_id: courseId },
+    orderBy: {
+      id: "asc",
+    },
+  });
+};
 
-export const createModule = async (module: any) => {
-    const modules = await getAllModules();
-    const newModule = { id: modules.length + 1, ...module };
-    modules.push(newModule);
-    return newModule;
-}
+export const createModule = async (module: CreateModulePayload) => {
+  const newModule = await prisma.modules.create({
+    data: module,
+  });
+  return newModule;
+};
 
-export const updateModule = async (id: number, moduleData: any) => {
-    const modules = await getAllModules();
-    const index = modules.findIndex(module => module.id === id);
-    if (index !== -1) {
-        modules[index] = { ...modules[index], ...moduleData };
-        return modules[index];
-    }
-    return null;
-}
+export const updateModule = async (id: number, moduleData: Partial<Module>) => {
+  const updatedModule = await prisma.modules.update({
+    where: { id },
+    data: moduleData,
+  });
+  return updatedModule;
+};
 
 export const deleteModule = async (id: number) => {
-    const modules = await getAllModules();
-    const index = modules.findIndex(module => module.id === id);
-    if (index !== -1) {
-        const deletedModule = modules[index];
-        modules.splice(index, 1);
-        return deletedModule;
-    }
-    return null;
-}
+  const deletedModule = await prisma.modules.delete({
+    where: { id },
+  });
+  return deletedModule;
+};
