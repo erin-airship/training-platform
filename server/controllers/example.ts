@@ -7,7 +7,7 @@ const getExamples = async (req: Request, res: Response) => {
    };
 
 const getAllUsers = async (req: Request, res: Response) => {
-    const users = await exampleModel.getAllUsers();
+    const users = await exampleModel.getAllForUser(1);
     return res.json(users);
   };
 

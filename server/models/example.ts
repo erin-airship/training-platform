@@ -13,6 +13,19 @@ export const getAllExamples = async () => {
     }]
 };
 
+export const getAllForUser = async (userId: number) => {
+    return [{
+        id: 1,
+        name: 'Example 1'
+    }, {
+        id: 2,
+        name: 'Example 2'
+    }, {
+        id: 3,
+        name: 'Example 3'
+    }]
+  }
+
 export const getExampleById = async (id: number) => {
     return {
         id: id,
