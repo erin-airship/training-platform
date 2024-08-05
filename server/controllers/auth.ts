@@ -15,9 +15,27 @@ const postSignUp = async (req: Request, res: Response) => {
     const accessToken = await generateAccessToken(user.id);
     res.status(201).json({ accessToken });
   } catch (error) {
-    res.status(400).send("Error Logging In");
+    res.status(400).send("Could not sign up");
     console.error(error);
   }
 };
 
-export { postSignUp };
+const postSignIn = async (req: Request, res: Response) => {
+  try {
+    const user = await usersModel.getUserByEmail(req.body.email);
+    if (!user) {
+      return res.status(400).send("User not found");
+    }
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword) {
+      return res.status(400).send("Invalid password");
+    }
+    const accessToken = await generateAccessToken(user.id);
+    res.status(200).json({ accessToken });
+  } catch (error) {
+    res.status(400).send("Could not sign in");
+    console.error(error);
+  }
+};
+
+export { postSignUp, postSignIn };
