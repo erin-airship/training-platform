@@ -28,7 +28,7 @@ jobs:
       - name: Prisma Pull
         run: npx prisma db pull
       - name: Prisma Generate
-        run: <your prisma generate command>
+        run: npx prisma generate
       - name: 🛠 Check for modified snapshots
         id: snapshot-check
         run: echo ::set-output name=modified::$(if git status | grep "nothing to commit"; then echo "false"; else echo "true"; fi)
