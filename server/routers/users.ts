@@ -1,5 +1,6 @@
 import { Router, Response, Request } from 'express';
 import * as userController from '../controllers/users';
+import { checkRoleMiddleware } from '../middleware/role';
 
 const router = Router();
 

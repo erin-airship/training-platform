@@ -1,4 +1,4 @@
-import express from "express";
+import express, {NextFunction, Request, Response} from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
@@ -13,13 +13,6 @@ app.use(
     origin: "*",
   })
 );
-
-app.use("/courses", coursesRouter);
-app.use("/example", exampleRouter);
-app.use("/modules", modulesRouter);
-app.use("/progress", progressRouter);
-app.use("/users", usersRouter);
-app.use("/auth", authRouter);
 
 const options = {
   definition: {
@@ -184,9 +177,35 @@ const options = {
   apis: ["./routers/**/*.ts"],
 };
 
-  const openapiSpecification = swaggerJsdoc(options);
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+const openapiSpecification = swaggerJsdoc(options);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
-  // app.use(authMiddlewareExample);
+/* Auth */
+app.use("/auth", authRouter);
+
+/* Auth Middleware */
+app.use((req, res, next) => {
+  if (req.path.startsWith("/auth")) {
+    return next(); // Skip authMiddleware for /auth routes
+  }
+  app.use(authMiddlewareExample);
+});
+
+
+app.use("/courses", coursesRouter);
+app.use("/example", exampleRouter);
+app.use("/modules", modulesRouter);
+app.use("/progress", progressRouter);
+app.use("/users", usersRouter);
+
+// Error Handling
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err) {
+    return res.status(err.status || 500).json({
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+});
 
   export { app };
