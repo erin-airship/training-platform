@@ -18,5 +18,16 @@ services:
       - ./db:/flyway/sql  
     depends_on:  
       - db  
+  api:
+    profiles: ["be"]
+    build:
+      context: ./server
+      dockerfile: Dockerfile.local
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/app
+    environment:
+      DATABASE_URL: "postgres://postgres:password@db:5432/training-platform-db?schema=public"
 volumes:  
   db:
