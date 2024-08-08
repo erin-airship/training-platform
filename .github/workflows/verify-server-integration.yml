@@ -1,0 +1,32 @@
+name: Verify API Integration Tests
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+      - 'database/**'
+
+defaults:
+  run:
+    working-directory: ./server
+
+env:
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/training-platform-db?schema=public
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v3
+      - name: Install
+        run: npm i
+      - name: Test
+        run: npm run test:integration
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Jest Tests
+          path: "**/reports/jest-junit.xml" # Path to test results
+          reporter: jest-junit
