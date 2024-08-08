@@ -3,7 +3,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import { coursesRouter, exampleRouter, modulesRouter, progressRouter, usersRouter, authRouter } from "./routers";
-import { authMiddlewareExample } from "./middleware/auth";
+import { verifyTokenMiddleware } from "./middleware/auth";
 
 const app = express();
 app.use(express.json());
@@ -183,15 +183,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 /* Auth */
 app.use("/auth", authRouter);
 
-/* Auth Middleware */
-app.use((req, res, next) => {
-  if (req.path.startsWith("/auth")) {
-    return next(); // Skip authMiddleware for /auth routes
-  }
-  app.use(authMiddlewareExample);
-});
-
-
+app.use(verifyTokenMiddleware);
 app.use("/courses", coursesRouter);
 app.use("/example", exampleRouter);
 app.use("/modules", modulesRouter);

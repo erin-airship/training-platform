@@ -32,6 +32,7 @@ const mockResponse = (userId?: number) => {
   res.status = jest.fn().mockReturnValue(res);
   res.json = jest.fn().mockReturnValue(res);
   res.locals = { user_id: userId ?? 1 };
+  res.send = jest.fn().mockReturnValue(res);
   return res;
 };
 
