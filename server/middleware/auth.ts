@@ -6,6 +6,9 @@ export async function verifyTokenMiddleware(
   res: Response,
   next: NextFunction
 ) {
+  if (req.path.startsWith("/auth")) {
+    return next(); // Skip authMiddleware for /auth routes
+  }
   if (process.env.NODE_ENV === 'test') {
     res.locals.user_id = 1;
     return next();
