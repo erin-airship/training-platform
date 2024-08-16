@@ -178,7 +178,7 @@ const options = {
 };
 
 const openapiSpecification = swaggerJsdoc(options);
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 /* Auth */
 app.use("/auth", authRouter);

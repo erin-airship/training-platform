@@ -20,6 +20,16 @@ describe("/users", () => {
       
     });
   });
+  describe("GET /users/:id", () => {
+    it("should respond with a single user", async () => {
+      await request(app)
+        .get("/users/1")
+        .set("Accept", "application/json")
+        .expect("Content-Type", /json/)
+        .expect(200);
+    });
+  });
+  
   describe("POST /users", () => {
     it("should successfully create a new user", async () => {
       await request(app)
@@ -35,16 +45,6 @@ describe("/users", () => {
     });
   });
 
-  describe("GET /users/:id", () => {
-    it("should respond with a single user", async () => {
-      await request(app)
-        .get("/users/1")
-        .set("Accept", "application/json")
-        .expect("Content-Type", /json/)
-        .expect(200);
-    });
-  });
-  
   describe("PUT /users/:id", () => {
     it("should put update with an updated user", async () => {
       await request(app)
