@@ -1,0 +1,22 @@
+import { BrowserRouter } from "react-router-dom";
+import { AuthenticatedRoutes } from "./AuthenticatedRoutes";
+import { SharedRoutes } from "./SharedRoutes";
+import { UnauthenticatedRoutes } from "./UnAuthenticatedRoutes";
+import { useAuth } from "../context/authContext";
+
+function RootRouter() {
+  // const { state } = AuthContext.useLogin();
+  // const authenticated = state.accessToken && true;
+//   const authenticated = false;
+const {isLoggedIn} = useAuth();
+
+  return (
+    <BrowserRouter>
+      {/* {authenticated && <ResponsiveAppBar />} */}
+      {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+      <SharedRoutes />
+    </BrowserRouter>
+  );
+}
+
+export default RootRouter;
