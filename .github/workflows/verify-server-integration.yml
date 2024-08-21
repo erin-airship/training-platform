@@ -11,7 +11,7 @@ defaults:
     working-directory: ./server
 
 env:
-  DATABASE_URL: postgresql://postgres:password@localhost:5432/training-platform-db?schema=public
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/training_platform_db?schema=public
 
 jobs:
   execute:
