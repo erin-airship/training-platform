@@ -27,8 +27,25 @@ export const getUserById = async (id: number) => {
   }
 };
 
+/**
+ * The function `createUser` creates a new user with the provided email, password, and role (defaulting
+ * to "trainee") using Prisma and returns the user's id and email.
+ * @param {CreateUserPayload} user - The `createUser` function takes a parameter `user` of type
+ * `CreateUserPayload`. This parameter should have properties `email`, `password`, and `role`.
+ * @returns The `createUser` function is returning a new user object with the `id` and `email`
+ * properties selected from the database after creating a new user with the provided `email`,
+ * `password`, and `role` (defaulted to "trainee" if not provided).
+ */
 export const createUser = async (user: CreateUserPayload) => {
   const { email, password, role } = user;
+
+  const existingUser = await prisma.users.findUnique({
+    where: { email },
+  });
+  if (existingUser) {
+    throw new Error("User already exists");
+  }
+
   const newUser = await prisma.users.create({
     data: {
       email,

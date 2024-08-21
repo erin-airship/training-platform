@@ -5,14 +5,14 @@ services:
     ports:  
       - 5432:5432
     environment:  
-      POSTGRES_DB: training-platform-db  
+      POSTGRES_DB: training_platform_db  
       POSTGRES_USER: postgres  
       POSTGRES_PASSWORD: password  
     volumes:  
       - db:/var/lib/postgresql/data  
   flyway:  
     image: flyway/flyway  
-    command: -url=jdbc:postgresql://db/training-platform-db -schemas=public -user=postgres  
+    command: -url=jdbc:postgresql://db/training_platform_db -schemas=public -user=postgres  
       -password=password -connectRetries=5 migrate  
     volumes:  
       - ./db:/flyway/sql  
@@ -28,6 +28,6 @@ services:
     volumes:
       - ./server:/app
     environment:
-      DATABASE_URL: "postgres://postgres:password@db:5432/training-platform-db?schema=public"
+      DATABASE_URL: "postgres://postgres:password@db:5432/training_platform_db?schema=public"
 volumes:  
   db:
