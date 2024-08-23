@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthenticatedRoutes } from "./AuthenticatedRoutes";
 import { SharedRoutes } from "./SharedRoutes";
 import { UnauthenticatedRoutes } from "./UnAuthenticatedRoutes";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/AuthContext";
 
 function RootRouter() {
   // const { state } = AuthContext.useLogin();
