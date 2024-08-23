@@ -1,6 +1,6 @@
-import Navbar from "../../components/shared/Navbar";
+import Navbar from "../../../components/shared/Navbar";
 
-const LogIn = () => {
+const SignIn = () => {
   return (
     <>
       <Navbar />
@@ -9,4 +9,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default SignIn;
