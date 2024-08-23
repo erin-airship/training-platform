@@ -1,5 +1,5 @@
 import {Routes, Route, Navigate} from 'react-router-dom';
-import Logout from './logout';
+import Logout from './auth/logout';
 
 export const AuthenticatedRoutes = () => {
     return (
