@@ -19,9 +19,9 @@ const formSchema = z.object({
   description: z.string(),
 });
 
-const CreateCoursePage = () => {
+const CreateModulePage = () => {
   const {
-    mutateAsync: createCourse,
+    mutateAsync: createModule,
   } = usePostCourses();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -33,7 +33,7 @@ const CreateCoursePage = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createCourse(values);
+    await createModule(values);
   }
 
   return (
@@ -78,4 +78,4 @@ const CreateCoursePage = () => {
   );
 };
 
-export default CreateCoursePage;
+export default CreateModulePage;
