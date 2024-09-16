@@ -21,7 +21,7 @@ import {
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { usePostSignIn } from "@/hooks/api/auth/usePostSIgnIn";
+import { usePostSignIn } from "@/hooks/api/auth/usePostSignIn";
 import { usePostSignUp } from "@/hooks/api/auth/usePostSignUp";
 
 const formSchema = z.object({
@@ -32,7 +32,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = ({cardTitle = 'Sign In', type = 'signin'}) => {
-    const { mutateAsync: login, isLoading, isError, error } = usePostSignIn();
+    const { mutateAsync: login, isLoading } = usePostSignIn();
     const { mutateAsync: register } = usePostSignUp();
 
 

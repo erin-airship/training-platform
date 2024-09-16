@@ -1,0 +1,17 @@
+{
+  "name": "training-platform",
+  "version": "1.0.0",
+  "description": "## Introduction  This is a web application that allows users who are instructing or taking a training course to have the ability to track their progress within the course.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.47.0",
+    "@types/node": "^22.5.4"
+  }
+}

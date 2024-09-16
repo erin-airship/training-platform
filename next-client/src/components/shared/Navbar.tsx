@@ -34,12 +34,6 @@ const Navbar = async () => {
               Dashboard
             </Link>
             <Link
-              href="/my-courses"
-              className="text-foreground transition-colors hover:text-foreground"
-            >
-              My Courses
-            </Link>
-            <Link
               href="/courses"
               className="text-foreground transition-colors hover:text-foreground"
             >
@@ -72,6 +66,9 @@ const Navbar = async () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link href="/settings">Account</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/my-courses">My Courses</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <NavbarLogoutButton />

@@ -26,7 +26,9 @@ const getCourseById = async (req: Request, res: Response) => {
 
 const createCourse = async (req: Request, res: Response) => {
   try {
+    console.log("req.body", req.body);
     const course = req.body;
+    console.log("course", course);
     const newCourse = await coursesModel.createCourse(course);
     res.status(201).json(newCourse);
   } catch (error) {
