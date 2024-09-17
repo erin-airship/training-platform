@@ -15,7 +15,6 @@ export const useGetCourses = () => {
       return data;
     },
     onSuccess: (data) => {
-      console.log(data);
       return data;
     },
     onError: (error) => {

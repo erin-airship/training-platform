@@ -14,7 +14,6 @@ export const useGetCourseDetails = (id: string) => {
             return data;
         },
         onSuccess: (data) => {
-            console.log(data);
             return data;
         },
         onError: (error) => {

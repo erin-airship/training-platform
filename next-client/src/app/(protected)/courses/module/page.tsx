@@ -13,6 +13,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { usePostCourses } from "@/hooks/api/courses/usePostCourses";
+import { useParams } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string(),
@@ -20,6 +21,8 @@ const formSchema = z.object({
 });
 
 const CreateModulePage = () => {
+const {id} = useParams();
+console.log("ID: ", id);
   const {
     mutateAsync: createModule,
   } = usePostCourses();

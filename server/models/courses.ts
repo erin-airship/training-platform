@@ -25,13 +25,11 @@ export const getCourseById = async (id: number) => {
 };
 
 export const createCourse = async (course: CreateCoursePayload) => {
-  console.log("course2", course);
   const newCourse = await prisma.courses.create({
     data: {
       ...course,
     },
   });
-  console.log("newCourse", newCourse);
   return newCourse;
 };
 
