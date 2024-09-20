@@ -24,6 +24,18 @@ const getModuleById = async (req: Request, res: Response) => {
   }
 };
 
+const getModulesByCourseId = async (req: Request, res: Response) => {
+  console.log('getModulesByCourseId');
+  try {
+    const { courseId } = req.params;
+    console.log('courseId', courseId);
+    const modules = await modulesModel.getModulesByCourseId(Number(courseId));
+    res.status(200).json(modules);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while fetching modules" });
+  }
+};
+
 const createModule = async (req: Request, res: Response) => {
   try {
     const module = req.body;
@@ -66,4 +78,4 @@ const deleteModule = async (req: Request, res: Response) => {
   }
 };
 
-export { getModules, getModuleById, createModule, updateModule, deleteModule };
+export { getModules, getModuleById, getModulesByCourseId, createModule, updateModule, deleteModule };

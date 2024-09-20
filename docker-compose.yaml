@@ -19,7 +19,7 @@ services:
     depends_on:  
       - db  
   api:
-    profiles: ["be"]
+    profiles: ["be", "e2e"]
     build:
       context: ./server
       dockerfile: Dockerfile.local
@@ -29,5 +29,18 @@ services:
       - ./server:/app
     environment:
       DATABASE_URL: "postgres://postgres:password@db:5432/training_platform_db?schema=public"
+  # next-client:
+  #   profiles: ["e2e", "nextjs"]
+  #   build:
+  #     context: ./next-client
+  #     dockerfile: Dockerfile.local
+  #   volumes:
+  #     - ./next-client:/app
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - ./next-client/.env
+  #   depends_on:  
+  #     - api
 volumes:  
   db:

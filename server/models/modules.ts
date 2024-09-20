@@ -18,6 +18,7 @@ export const getModuleById = async (id: number) => {
 };
 
 export const getModulesByCourseId = async (courseId: number) => {
+  console.log('getModulesByCourseId');
   return await prisma.modules.findMany({
     where: { course_id: courseId },
     orderBy: {

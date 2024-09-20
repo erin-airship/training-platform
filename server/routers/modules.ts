@@ -53,6 +53,9 @@ router.route('/').get(moduleController.getModules);
  */
 router.route('/:id').get(moduleController.getModuleById);
 
+
+router.route('/course/:courseId/modules').get(moduleController.getModulesByCourseId);
+
 /**
  * @swagger
  * /modules:

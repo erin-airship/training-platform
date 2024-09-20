@@ -12,12 +12,11 @@ import {
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { usePostCourses } from "@/hooks/api/courses/usePostCourses";
 import { useParams } from "next/navigation";
+import { usePostCourseModule } from "@/hooks/api/courses/usePostCourseModules";
 
 const formSchema = z.object({
-  name: z.string(),
-  description: z.string(),
+  title: z.string(),
 });
 
 const CreateModulePage = () => {
@@ -25,18 +24,19 @@ const {id} = useParams();
 console.log("ID: ", id);
   const {
     mutateAsync: createModule,
-  } = usePostCourses();
+  } = usePostCourseModule();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      description: "",
+      title: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    await createModule(values);
+    const courseId = id.toString();
+    const totalValues = { ...values, courseId };
+    await createModule(totalValues);
   }
 
   return (
@@ -47,27 +47,12 @@ console.log("ID: ", id);
           <div className="mb-4">
             <FormField
               control={form.control}
-              name="name"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course Name</FormLabel>
+                  <FormLabel>Module Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="COE Training" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="mb-4">
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="" {...field} />
+                    <Input placeholder="Learn " {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
