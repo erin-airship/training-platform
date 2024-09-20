@@ -31,12 +31,15 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  globalSetup: process.env.CI
-    ? require.resolve('./e2e/global.setup.ts')
-    : undefined,
-  globalTeardown: process.env.CI
-    ? require.resolve('./e2e/global.teardown.ts')
-    : undefined,
+  globalSetup: require.resolve('./e2e/global.setup.ts'),
+  globalTeardown: require.resolve('./e2e/global.teardown.ts'),
+
+  // globalSetup: process.env.CI
+  //   ? require.resolve('./e2e/global.setup.ts')
+  //   : undefined,
+  // globalTeardown: process.env.CI
+  //   ? require.resolve('./e2e/global.teardown.ts')
+  //   : undefined,
 
   /* Configure projects for major browsers */
   projects: [
@@ -58,7 +61,7 @@ export default defineConfig({
     ],
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npm run start',
+    command: 'npm run start:client',
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
   },
