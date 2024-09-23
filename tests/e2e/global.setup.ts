@@ -5,7 +5,7 @@ async function globalSetup(config) {
   console.log('creating new database...');
   // Initialize the database
   const composeFilePath = path.resolve(__dirname, '../../');
-  const composeFile = 'docker-compose.yml';
+  const composeFile = 'docker-compose.yaml';
 
   try {
     global.__ENVIRONMENT__ = await new DockerComposeEnvironment(
