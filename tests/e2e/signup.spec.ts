@@ -1,17 +1,17 @@
 import {test, expect} from "@playwright/test";
-import SigninPage from '../pages/SigninPage';
+import SignUpPage from "../pages/SignUpPage";
 
-test.describe('Signin page', () => {
-  test('dashboard redirects to signin', async ({ page }) => {
+test.describe('Sign Up Page', () => {
+  test('dashboard redirects to sign up', async ({ page }) => {
     // Arrange
     const mockUser = {
       email: 'test@test.com',
       password: 'Changeme1!',
     };
-    const signinPage = new SigninPage(page);
+    const signinPage = new SignUpPage(page);
 
     await signinPage.navigate();
-    await expect(page.getByRole('heading', { name: 'Sign In' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sign Up' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();
 
     // Act

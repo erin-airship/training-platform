@@ -52,8 +52,6 @@ const LoginForm = ({cardTitle = 'Sign In', type = 'signin'}) => {
     }
   }
 
-  // const isLoading = false;
-
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md p-6">

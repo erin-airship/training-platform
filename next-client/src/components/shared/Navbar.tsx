@@ -1,7 +1,7 @@
-import { CircleUser, Package2 } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
-import { Button } from '../ui/button';
+import { CircleUser, Package2 } from "lucide-react";
+import Link from "next/link";
+import React from "react";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,29 +9,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { getUser } from '@/utils/actions';
-import NavbarLogoutButton from './NavbarLogoutButton';
+} from "../ui/dropdown-menu";
+import { getUser } from "@/utils/actions";
+import NavbarLogoutButton from "./NavbarLogoutButton";
 
 const Navbar = async () => {
   const { user } = await getUser();
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-lg font-semibold md:text-base"
-        >
-          <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
         {user ? (
           <>
             <Link
               href="/dashboard"
-              className="text-foreground transition-colors hover:text-foreground"
+              className="flex items-center gap-2 text-lg font-semibold md:text-base"
             >
-              Dashboard
+              <Package2 className="h-6 w-6" />
+              <span className="sr-only">Acme Inc</span>
             </Link>
             <Link
               href="/courses"

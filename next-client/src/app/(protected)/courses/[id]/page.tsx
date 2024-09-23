@@ -19,15 +19,14 @@ if (isLoading) {
 
   return (
     <div className="container mx-auto py-8">
-       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Available Courses</h2>
+       <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">{courseDetails.title} Course</h2>
         <Link href={`/courses/${id}/modules/create`}>
           <Button>Create Course Module</Button>
         </Link>
       </div>
-      <h1 className="text-2xl font-bold mb-4">{courseDetails.title}</h1>
-      <p className="text-gray-600 mb-4">{courseDetails.description}</p>
-      <p className="text-gray-800">Progress: {courseDetails.progress}</p>
+      <p className="text-gray-600 mb-8">{courseDetails.description}</p>
+      <h2 className="text-xl text-gray-800 mb-2">Progress: {courseDetails.progress}</h2>
       {/* More course details here */}
       {modules && modules.length > 0 ? (
           modules.map((module: { id: number; title: string }) => (
