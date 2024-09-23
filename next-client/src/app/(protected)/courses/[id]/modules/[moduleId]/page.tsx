@@ -21,7 +21,6 @@ const formSchema = z.object({
 
 const CreateModulePage = () => {
 const {id} = useParams();
-console.log("ID: ", id);
   const {
     mutateAsync: createModule,
   } = usePostCourseModule();
@@ -59,7 +58,7 @@ console.log("ID: ", id);
               )}
             />
           </div>
-          <Button type="submit">Create Course</Button>
+          <Button type="submit">Create Module</Button>
         </form>
       </Form>
     </div>

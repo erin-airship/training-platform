@@ -25,8 +25,8 @@ export const usePostCourseModule = () => {
       const data = await createModule(variables.title, variables.courseId);
       return data as CreateCourseModuleResponse;
     },
-    onSuccess: (data) => {
-      router.push(`/courses/${data.id}`);
+    onSuccess: (data, variables) => {
+      router.push(`/courses/${variables.courseId}`);
     },
     onError: (error) => {
       console.error(error);

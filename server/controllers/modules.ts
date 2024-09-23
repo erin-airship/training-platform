@@ -25,10 +25,8 @@ const getModuleById = async (req: Request, res: Response) => {
 };
 
 const getModulesByCourseId = async (req: Request, res: Response) => {
-  console.log('getModulesByCourseId');
   try {
     const { courseId } = req.params;
-    console.log('courseId', courseId);
     const modules = await modulesModel.getModulesByCourseId(Number(courseId));
     res.status(200).json(modules);
   } catch (error) {
