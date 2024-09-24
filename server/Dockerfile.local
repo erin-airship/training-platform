@@ -12,4 +12,6 @@ ENTRYPOINT ["sh", "-c"]
 
 HEALTHCHECK CMD curl --fail http://localhost:3001 || exit 1   
 
-CMD ["npm install && npm run dev"]
+RUN npm ci
+
+CMD npm run dev

@@ -7,9 +7,11 @@
     "test": "jest",
     "start": "nodemon index.ts",
     "dev": "nodemon index.ts",
+    "prisma:generate": "npx prisma generate",
     "test:unit": "jest --testPathIgnorePatterns ./routers/ --ci --reporters=default --reporters=jest-junit",
     "test:unit:watch": "jest --watch --testPathIgnorePatterns ./routers/",
-    "test:integration": "jest --config ./jest.integration.config.ts --testPathPattern ./routers/ --forceExit"
+    "test:integration": "jest --config ./jest.integration.config.ts --testPathPattern ./routers/ --forceExit",
+    "postinstall": "npm run prisma:generate"
   },
   "jest-junit": {
     "outputDirectory": "reports",
