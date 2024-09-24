@@ -10,8 +10,9 @@ const DashboardPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
-        <h2 className="text-2xl font-bold">COE Training</h2>
+       
         <section>
+        <h2 className="text-2xl font-bold">COE Training</h2>
           {
             courses?.map((course: { id: number; title: string; progress: string }) => (
               <Link href={`/courses/${course.id}`} key={course.id} className="text-sm text-blue-500">

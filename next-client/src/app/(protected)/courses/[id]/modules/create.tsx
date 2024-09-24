@@ -15,12 +15,12 @@ const createModule = async (courseId: string, title: string, description: string
 };
 
 const CreateModulePage = () => {
-  const { id } = useParams(); // Get the course ID from the route params
+  const { id } = useParams() as { id: string }; // Get the course ID from the route params
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const { mutate: createModuleMutation, isLoading, isError, error } = useMutation({
+  const { mutate: createModuleMutation, isLoading } = useMutation({
     mutationFn: async () => {
       return await createModule(id, title, description);
     },
@@ -64,7 +64,7 @@ const CreateModulePage = () => {
         <button type="submit" className="btn btn-primary" disabled={isLoading}>
           {isLoading ? 'Creating...' : 'Create Module'}
         </button>
-        {isError && <p className="text-red-500 mt-4">{error}</p>}
+        {/* {isError && <p className="text-red-500 mt-4">{error}</p>} */}
       </form>
     </div>
   );
