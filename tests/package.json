@@ -8,6 +8,7 @@
     "test:ui": "playwright test --ui",
     "start:server": "cd ../server && npm start",
     "start:client": "cd ../next-client && npm run dev",
+    "start:client:prod": "cd ../next-client && npm run start",
     "dev": "concurrently \"npm run start:server\" \"npm run start:client\""
   },
   "keywords": [],

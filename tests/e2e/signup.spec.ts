@@ -8,14 +8,14 @@ test.describe('Sign Up Page', () => {
       email: 'test@test.com',
       password: 'Changeme1!',
     };
-    const signinPage = new SignUpPage(page);
+    const signupPage = new SignUpPage(page);
 
-    await signinPage.navigate();
+    await signupPage.navigate();
     await expect(page.getByRole('heading', { name: 'Sign Up' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible();
 
     // Act
-    await signinPage.login(mockUser.email, mockUser.password);
+    await signupPage.login(mockUser.email, mockUser.password);
 
     // Assert
     await expect(page.getByRole('heading', { name: 'COE Training' })).toBeVisible();

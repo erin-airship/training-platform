@@ -28,6 +28,10 @@ jobs:
     - name: Install Next.js dependencies
       working-directory: next-client
       run: npm i
+
+    - name: Build Next.js app
+      working-directory: next-client
+      run: npm run build
       
     - name: Install Playwright Browsers
       working-directory: tests
