@@ -30,9 +30,8 @@ const CourseDetailPage = () => {
       </div>
       <p className="text-gray-600 mb-8">{courseDetails.description}</p>
       <h2 className="text-xl text-gray-800 mb-2">
-        Progress: {courseDetails.progress}
+       Modules in the course: {courseDetails.progress}
       </h2>
-      {/* More course details here */}
       {modules && modules.length > 0 ? (
         modules.map((module: { id: number; title: string }) => (
           <li key={module.id}>{module.title}</li>

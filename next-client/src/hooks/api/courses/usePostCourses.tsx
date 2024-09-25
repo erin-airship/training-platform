@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import instance from "@/utils/axios";
 
 export const createCourse = async (name: string, description: string) => {
-  const response = await instance.post("http://localhost:3001/courses", {
+  const response = await instance.post(`/courses`, {
     title: name,
     description: description,
     trainer_id: 1,

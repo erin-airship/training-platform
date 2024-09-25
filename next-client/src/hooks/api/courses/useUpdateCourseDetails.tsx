@@ -1,18 +1,37 @@
-import { useMutation, useQueryClient } from 'react-query';
-import axios from 'axios';
+"use client";
+import { useMutation, useQueryClient } from "react-query";
+import { useRouter } from "next/navigation";
+import instance from "@/utils/axios";
 
-export const useUpdateCourseDetails = () => {
+export const updateCourseDetails = async (id: string, name: string, description: string) => {
+  const response = await instance.put(`/courses/${id}`, {
+    title: name,
+    description: description,
+    trainer_id: 1,
+  });
+
+  return response.data;
+};
+
+interface UpdateCourseResponse {
+  id: string;
+}
+
+export const usePutCourse = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
-  return useMutation(
-    async ({ id, updatedDetails }: { id: string; updatedDetails: { title: string; description: string } }) => {
-      const response = await axios.put(`/api/courses/${id}`, updatedDetails);
-      return response.data;
+  return useMutation<UpdateCourseResponse, Error, { id: string; name: string; description: string }>({
+    mutationFn: async ({ id, name, description }) => {
+      const data = await updateCourseDetails(id, name, description);
+      return data;
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('courseDetails'); // Invalidate the cached course details to refresh the data
-      },
-    }
-  );
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["courseDetails", data.id]);
+      router.push(`/courses/${data.id}`);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 };

@@ -1,70 +1,94 @@
 "use client";
-import { useRouter, useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { usePutCourse } from "@/hooks/api/courses/useUpdateCourseDetails";
 import { useGetCourseDetails } from "@/hooks/api/courses/useGetCourseDetails";
-import { useUpdateCourseDetails } from "@/hooks/api/courses/useUpdateCourseDetails";
+import { useEffect } from "react";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Course name is required"),
+  description: z.string().min(1, "Description is required"),
+});
 
 const EditCoursePage = () => {
-  const router = useRouter();
   const { id } = useParams();
-  const {
-    data: courseDetails,
-    isLoading,
-  } = useGetCourseDetails(id as string);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const { mutate: updateCourseDetails } = useUpdateCourseDetails();
+  const { mutateAsync: updateCourseDetails } = usePutCourse();
+  const { data: courseDetails, isLoading } = useGetCourseDetails(id as string);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
 
   useEffect(() => {
-    if (courseDetails) {
-      setTitle(courseDetails.title);
-      setDescription(courseDetails.description);
+    if (courseDetails && !isLoading) {
+      form.reset({
+        name: courseDetails.title,
+        description: courseDetails.description,
+      });
     }
-  }, [courseDetails]);
+  }, [courseDetails, isLoading, form]);
 
-  const handleSave = async () => {
-      await updateCourseDetails({ id: id as string, updatedDetails: { title, description } });
-      router.push(`/courses/${id}`);
-    };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await updateCourseDetails({ id: id as string, name: values.name, description: values.description });
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-4">Edit Course</h2>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="title"
-        >
-          Title
-        </label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="description"
-        >
-          Description
-        </label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <Button onClick={handleSave}>Save</Button>
+      <h2 className="text-2xl font-bold mb-6">Edit Course</h2>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="mb-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Course Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Course Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="mb-4">
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Course Description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button type="submit">Update Course</Button>
+        </form>
+      </Form>
     </div>
   );
 };
